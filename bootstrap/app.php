@@ -8,6 +8,10 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
         commands: __DIR__.'/../routes/console.php',
+<<<<<<< HEAD
+=======
+        channels: __DIR__.'/../routes/channels.php',
+>>>>>>> 9c8a8b2 (Initialize Laravel WebRTC Video Call project)
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {

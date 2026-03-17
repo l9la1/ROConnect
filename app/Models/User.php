@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+<<<<<<< HEAD
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -13,6 +14,17 @@ class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, TwoFactorAuthenticatable;
+=======
+use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+
+class User extends Authenticatable
+{
+    /** @use HasFactory<UserFactory> */
+    use HasFactory, Notifiable;
+>>>>>>> 9c8a8b2 (Initialize Laravel WebRTC Video Call project)
 
     /**
      * The attributes that are mass assignable.
@@ -32,8 +44,11 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
+<<<<<<< HEAD
         'two_factor_secret',
         'two_factor_recovery_codes',
+=======
+>>>>>>> 9c8a8b2 (Initialize Laravel WebRTC Video Call project)
         'remember_token',
     ];
 
@@ -49,6 +64,7 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+<<<<<<< HEAD
 
     /**
      * Get the user's initials
@@ -61,4 +77,6 @@ class User extends Authenticatable
             ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
+=======
+>>>>>>> 9c8a8b2 (Initialize Laravel WebRTC Video Call project)
 }

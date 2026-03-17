@@ -129,7 +129,11 @@ return [
 
     'cookie' => env(
         'SESSION_COOKIE',
+<<<<<<< HEAD
         Str::slug((string) env('APP_NAME', 'laravel')).'-session',
+=======
+        Str::slug((string) env('APP_NAME', 'laravel')).'-session'
+>>>>>>> 9c8a8b2 (Initialize Laravel WebRTC Video Call project)
     ),
 
     /*

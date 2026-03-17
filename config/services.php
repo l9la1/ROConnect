@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'turn' => [
+        'username' => env('TURN_USERNAME'),
+        'credential' => env('TURN_CREDENTIAL'),
+    ],
+
 ];
