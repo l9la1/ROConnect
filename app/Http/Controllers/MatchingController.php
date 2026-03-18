@@ -23,30 +23,26 @@ class MatchingController extends Controller
 
             $sessions = $sessions->get();
 
-            $potmatch = null;
-            $noMatchc = null;
+            $potmatch = [];
             foreach ($sessions as $session) {
-                $notMatchings =  array_diff($hobbies,explode(',', $session->interest_tag));
+                $interests=explode(',', $session->interest_tag);
+                // Check difference on hobbies
+                $notMatchings =  array_diff($hobbies,$interests);
                 $notMatchingCount = count($notMatchings);
+                
+                // Check difference on interests
+                $notMatchinsi=array_diff($interests,$hobbies);
+                $notMatchingsiCount=count($notMatchinsi);
+
                 if(isset($minHob)&&count($hobbies)-$notMatchingCount<(int)$minHob)continue;
-                if ($notMatchingCount === 0) {
-                    $potmatch = $session;
-                    $noMatchc=count($hobbies);
-                    break;
-                }
-                if (!isset($noMatchc)) {
-                    $noMatchc = $notMatchingCount;
-                    $potmatch = $session;
-                }
-                else {
-                    if ($noMatchc > $notMatchingCount) {
-                        $noMatchc = $notMatchingCount;
-                        $potmatch = $session;
-                    }
-                }
+                array_push($potmatch,  [
+                    'user' => $session,
+                    'amount' => ((count($hobbies) + count($interests)) - ($notMatchingCount + $notMatchingsiCount)) / (count($hobbies) + count($interests)) * 100,
+                    'notMatchingHobbies' => implode(',', array_merge($notMatchings, $notMatchinsi))
+                ]);
             }
             
-            return response()->json(['match'=>$potmatch,'amount'=>$noMatchc/count($hobbies)*100,'notMatchingHobbies'=>implode(',',$notMatchings)]);
+            return response()->json(['match'=>$potmatch]);
         }else{
             return response()->view('matching');
         }

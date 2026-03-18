@@ -13,10 +13,8 @@
     <input type="text" id="hobby" placeholder="seperated by , hobbys" />
     <input type="number" id="minHob" min="0" value="0" placeholder="The amount of hobbys that has to match" />
     <input type="submit" value="search" onclick="submit()" />
-    
+
     <div style="display:none;" id="match">
-        <input type="range" min="0" max="100" id="matchcount" disabled />
-        <div id="out"></div>
     </div>
     <script>
         async function submit() {
@@ -32,29 +30,46 @@
             ) + "&minHob=" + minHob.value);
 
             const json = await res.json();
-            if(res.ok)
-            showOutput(json);
+            if (res.ok)
+                showOutput(json);
             else alert('Something went wrong');
         }
-        
-        function showOutput(json){
-            if(json.error)alert(json.error);
-            if(json.match)
-        {
-            const match=document.getElementById('match');
-            const matchcount=document.getElementById('matchcount');
-            const out=document.getElementById('out');
-            
-            matchcount.value=json.amount;
-            out.innerHTML=`
-            Name:${json.match.display_name}<br/>
-            interest_tag:${json.match.interest_tag}<br/>
-            matchpercentage:${json.amount}%<br/>
-            not a match on:${json.notMatchingHobbies}
-            `;
-            match.style.display='initial';
 
+        function showOutput(json) {
+            if (json.error) alert(json.error);
+            const matchHolder = document.getElementById('match');
+            matchHolder.innerHTML="";
+            if (json.match) {
+                for (let match of json.match) {
+                    matchHolder.appendChild(outputHTML(match));
+                }
+                matchHolder.style.display = 'initial';
+            } else {
+
+                matchHolder.innerHTML = "<b>No match</b>";            
+                matchHolder.style.display = 'initial';
+            }
         }
+
+        function outputHTML(match) {
+            const matchContainer = document.createElement('div');
+            const matchcount = document.createElement('input');
+            matchcount.type = 'range';
+            matchcount.value = match.amount;
+            matchcount.min = 0;
+            matchcount.disabled=true;
+            const matchInfo = document.createElement('p');
+            matchInfo.innerHTML = `
+        Name: ${match.user.display_name}<br/>
+        Interest Tag: ${match.user.interest_tag.split(',').sort().join(',')}<br/>
+        Match Percentage: ${match.amount}%<br/>
+        Not a match on: ${match.notMatchingHobbies.split(',').sort().join(',')}
+    `;
+
+            matchContainer.appendChild(matchInfo); // Add the paragraph to the container
+            matchContainer.appendChild(matchcount); // Add the input to the container
+
+            return matchContainer; matchcount.max = 100;
         }
     </script>
 </body>
