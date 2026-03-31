@@ -5,7 +5,6 @@
     <!-- Background: Stranger's Video (Full Screen) -->
     <div class="fixed inset-0 z-0 bg-[#020202]">
         <video id="remoteVideo" class="w-full h-full object-cover transition-all duration-1000" autoplay playsinline poster="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=1200"></video>
-        
         <!-- Cinematic Vignette Overlay -->
         <div class="absolute inset-0 shadow-[inset_0_0_200px_rgba(0,0,0,0.8)] pointer-events-none"></div>
         <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80 pointer-events-none"></div>

@@ -17,6 +17,7 @@ class UserSessions extends Model
         'avatar_url',
         'interest_tag',
         'last_active',
+        'session_id'
     ];
 
     protected $casts = [

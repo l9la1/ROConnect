@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('display_name', 50)->default('Guest');
             $table->string('preferred_language', 10)->default('en');
+            $table->string('session_id')->nullable()->default(null);
             $table->text('avatar_url')->nullable();
             $table->string('interest_tag', 50)->nullable()->comment('Optional interest for matching');
             $table->timestamps();
